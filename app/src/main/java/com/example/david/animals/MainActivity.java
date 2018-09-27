@@ -15,12 +15,12 @@ public class MainActivity extends AppCompatActivity {
     Server server;
 
     private ThreadProcessor processor;
-    private TextView myTextView;
+    private TextView somethingText;
     private Handler handler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            myTextView.setText((String) msg.obj);
+            somethingText.setText((String) msg.obj);
         }
     };
 
@@ -39,48 +39,36 @@ public class MainActivity extends AppCompatActivity {
             }
         };*/
     // }
+   /* printPersons(
+            roster,
+    new CheckPerson() {
+        public boolean test(Person p) {
+            return p.getGender() == Person.Sex.MALE
+                    && p.getAge() >= 18
+                    && p.getAge() <= 25;
+        }
+    }
+);*/
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        somethingText = (TextView) findViewById(R.id.somethingText);
 
+        //set THREAD_PRIORITY_BACKGROUND
+        //Thread.currentThread(); stores runnable objects
         processor = new ThreadProcessor();
 
-        processor.execute(() -> {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            Message message = Message.obtain();
-            message.obj = "Finished first task"
-            handler.sendMessage(message);
-        }).execute(() -> {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            Message message = Message.obtain();
-            message.obj = "Finished first task"
-            handler.sendMessage(message);
-        }).execute(() -> {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            Message message = Message.obtain();
-            message.obj = "Finished first task"
-            handler.sendMessage(message);
-        });
-    }
+        processor.instantiateTask1();
+        processor.instantiateTask2();
+        processor.instantiateTask3();
 
-    public void onDestroy() {
-        super.onDestroy();
-        processor.quit();
+        /*public void onDestroy () {
+            super.onDestroy();
+            processor.quit();
+        }*/
     }
 }
                 //server = new Server(this);
