@@ -2,6 +2,7 @@ package com.example.david.animals;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Looper;
 import android.telecom.Call;
 import android.view.View;
 import android.widget.TextView;
@@ -15,27 +16,36 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.Enumeration;
+import android.os.Handler;
+import android.os.Message;
 
 public class Server {
     MainActivity activity;
     ServerSocket serverSocket;
     String message = "";
     static final int socketServerPORT = 8080;
+    Handler handler;
 
     //need to change activity received to new activity
-    public Server(MainActivity activity) {
+    public Server(MainActivity activity,Handler handler) {
         this.activity = activity;
+        this.handler=handler;
         //Thread socketServerThread = new Thread(new SocketServerThread());
         //socketServerThread.start();
     }
     public Server() {
 
+        //handler sendMessage method send to main activity to update ui
+
 
                 Runnable runnable = new Runnable() {
                     public void run() {
+                        Looper.prepare();
+
+                        Handler handler1=new Handler();
 
                         long endTime = System.currentTimeMillis()
-                                + 20 * 1000;
+                                + 10 * 1000;
 
                         while (System.currentTimeMillis() < endTime) {
                             synchronized (this) {
@@ -46,11 +56,17 @@ public class Server {
                                 }
                             }
                         }
+                        handler1.sendEmptyMessage(0);
                     }
                 };
                 Thread mythread = new Thread(runnable);
                 mythread.start();
         }
+
+
+
+
+
                 //Thread socketServerThread = new Thread(new SocketServerThread());
                 //socketServerThread.start();
 

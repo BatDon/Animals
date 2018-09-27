@@ -41,7 +41,7 @@
         android:text="https://mydavidjerome.com/android-app/"
         android:textStyle="bold" />
     <TextView
-        android:id="@+id/something"
+        android:id="@+id/somethingText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="something"/>

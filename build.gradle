@@ -1,5 +1,11 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+/*android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
+    targetSdkVersion 24
 
+    jackOptions{ enabled true}
+}*/
 buildscript {
     
     repositories {
